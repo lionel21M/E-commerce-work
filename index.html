@@ -1,0 +1,547 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gadget E-Commerce Site</title>
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: white;
+            color: #17212b;
+            overflow: hidden;
+        }
+
+
+        .website {
+            width: 100%;
+            height: 100vh;
+            display: grid;
+            grid-template-rows: 75px  minmax(150px, 1.05fr)
+                                minmax(220px, 1.25fr) 120px;
+            overflow: hidden;
+        }
+
+
+        .header {
+            background: #f0f9ed;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 8px 4%;
+            gap: 20px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .cart-logo {
+            font-size: 38px;
+        }
+
+        .logo h2 {
+            font-size: 23px;
+            font-weight: 800;
+        }
+
+        .logo h2 span,
+        .footer-logo span {
+            color: #168b39;
+        }
+
+        .logo p {
+            font-size: 12px;
+            font-style: italic;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #17212b;
+            font-weight: bold;
+            padding: 11px 16px;
+            border-radius: 8px;
+            transition: 0.3s;
+            font-size: 14px;
+        }
+
+        .nav-links a:hover,
+        .nav-links .active {
+            background: #168b39;
+            color: white;
+        }
+
+        .cart-icon {
+            font-size: 28px;
+            position: relative;
+            cursor: pointer;
+        }
+
+        .cart-icon::before {
+            content: "🛒";
+        }
+
+        .cart-icon span {
+            position: absolute;
+            top: -8px;
+            right: -12px;
+            background: #168b39;
+            color: white;
+            font-size: 11px;
+            border-radius: 50%;
+            padding: 4px 7px;
+        }
+
+
+        .banner {
+            width: 98%;
+            height: 100%;
+            margin: 0 auto;
+            position: relative;
+            border-radius: 12px;
+            overflow: hidden;
+            padding: 5px 0;
+        }
+
+        .banner img {
+            width: 100%;
+            height: 100%;
+            display: block;
+            object-fit: cover;
+            border-radius: 12px;
+        }
+
+
+        .shop-now-btn {
+            position: absolute;
+            left: 3.6%;
+            bottom: 15%;
+            background: #168b39;
+            color: white;
+            padding: 13px 30px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-size: 15px;
+            font-weight: bold;
+            transition: 0.3s;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+        }
+
+        .shop-now-btn:hover {
+            background: #056b26;
+            transform: scale(1.05);
+        }
+
+
+        .products {
+            padding: 5px 2% 10px;
+            min-height: 0;
+            overflow: hidden;
+        }
+
+        .section-heading {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 5px 0 12px;
+        }
+
+        .section-heading h2 {
+            font-size: 25px;
+            border-left: 7px solid #168b39;
+            padding-left: 12px;
+        }
+
+        .section-heading a {
+            background: #078d32;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 13px;
+        }
+
+        .section-heading a:hover {
+            background: #056b26;
+        }
+
+        .product-container {
+            display: grid;
+            grid-template-columns: repeat(5, minmax(0, 1fr));
+            gap: 15px;
+            height: calc(100% - 48px);
+        }
+
+        .product-card {
+            text-align: center;
+            border: 1px solid #e8e8e8;
+            border-radius: 12px;
+            padding: 8px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+            transition: 0.3s;
+            min-width: 0;
+        }
+
+        .product-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.12);
+        }
+
+        .product-card img {
+            width: 100%;
+            height: 95px;
+            object-fit: contain;
+            margin-bottom: 5px;
+        }
+
+        .product-card h3 {
+            font-size: 15px;
+            margin-bottom: 7px;
+        }
+
+        .price {
+            margin-bottom: 9px;
+            font-size: 16px;
+        }
+
+        .price span {
+            color: #168b39;
+            font-weight: bold;
+            margin-right: 5px;
+        }
+
+        .price del {
+            color: gray;
+            font-size: 13px;
+        }
+
+        .product-card button {
+            background: #078d32;
+            color: white;
+            border: none;
+            padding: 9px 12px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 13px;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        .product-card button:hover {
+            background: #056b26;
+        }
+
+
+        footer {
+            background: #111b25;
+            color: white;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            padding: 15px 3% 25px;
+            gap: 15px;
+            position: relative;
+            font-size: 10px;
+            overflow: hidden;
+        }
+
+        .footer-logo h2 {
+            font-size: 19px;
+        }
+
+        .footer-logo p {
+            font-style: italic;
+            font-size: 11px;
+        }
+
+        .footer-links h3,
+        .contact h3,
+        .social h3 {
+            color: #32c653;
+            margin-bottom: 8px;
+            font-size: 15px;
+        }
+
+        .footer-links a {
+            color: white;
+            text-decoration: none;
+            margin-right: 4px;
+        }
+
+        .footer-links a:hover {
+            color: #32c653;
+        }
+
+        .contact p {
+            margin-bottom: 6px;
+        }
+
+        .social a {
+            color: white;
+            font-size: 20px;
+            text-decoration: none;
+            margin-right: 10px;
+        }
+
+        .copyright {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: #169b42;
+            text-align: center;
+            padding: 7px;
+            font-size: 11px;
+        }
+
+
+    </style>
+</head>
+
+<body>
+
+<div class="website">
+
+    <header class="header">
+
+        <div class="logo">
+
+            <span class="cart-logo">🛒</span>
+
+            <div>
+                <h2>Gadget <span>E-Commerce</span></h2>
+                <p>Smart Gadgets, Better Life</p>
+            </div>
+
+        </div>
+
+        <nav class="nav-links">
+
+            <a href="#" class="active">HOME</a>
+            <a href="#products">ABOUT</a>
+            <a href="#footer">SERVICE</a>
+            <a href="#footer">LOGIN</a>
+
+        </nav>
+
+        <div class="cart-icon">
+            <span id="cart-count">0</span>
+        </div>
+
+    </header>
+
+
+    <section class="banner">
+
+        <img src="banner.2.png"
+             alt="Discover the Latest Gadgets Online">
+
+        <a href="#products" class="shop-now-btn">
+            SHOP NOW →
+        </a>
+
+    </section>
+
+
+    <section class="products" id="products">
+
+        <div class="section-heading">
+
+            <h2>Our Selling Products</h2>
+
+            <a href="#products">View All Products →</a>
+
+        </div>
+
+        <div class="product-container">
+
+
+            <div class="product-card">
+
+                <img src="1.png.png" alt="HP Laptop">
+
+                <h3>HP Laptop 15.6"</h3>
+
+                <div class="price">
+                    <span>$750</span>
+                    <del>$850</del>
+                </div>
+
+                <button onclick="addToCart()">
+                    🛒 Add to Cart
+                </button>
+
+            </div>
+
+
+            <div class="product-card">
+
+                <img src="2.png.png" alt="Samsung Galaxy">
+
+                <h3>Samsung Galaxy A55</h3>
+
+                <div class="price">
+                    <span>$450</span>
+                    <del>$500</del>
+                </div>
+
+                <button onclick="addToCart()">
+                    🛒 Add to Cart
+                </button>
+
+            </div>
+
+        
+
+            <div class="product-card">
+
+                <img src="3.png.png" alt="AirPods Pro">
+
+                <h3>AirPods Pro</h3>
+
+                <div class="price">
+                    <span>$250</span>
+                    <del>$300</del>
+                </div>
+
+                <button onclick="addToCart()">
+                    🛒 Add to Cart
+                </button>
+
+            </div>
+
+            
+
+            <div class="product-card">
+
+                <img src="4.png.png" alt="Smart Watch">
+
+                <h3>Smart Watch S9</h3>
+
+                <div class="price">
+                    <span>$120</span>
+                    <del>$150</del>
+                </div>
+
+                <button onclick="addToCart()">
+                    🛒 Add to Cart
+                </button>
+
+            </div>
+
+        
+
+            <div class="product-card">
+
+                <img src="5.png.png" alt="Bluetooth Headphones">
+
+                <h3>Bluetooth Headphones</h3>
+
+                <div class="price">
+                    <span>$90</span>
+                    <del>$120</del>
+                </div>
+
+                <button onclick="addToCart()">
+                    🛒 Add to Cart
+                </button>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <footer id="footer">
+
+        <div class="footer-logo">
+
+            <h2>🛒 Gadget <span>E-Commerce</span></h2>
+
+            <p>Smart Gadgets, Better Life</p>
+
+        </div>
+
+        <div class="footer-links">
+
+            <h3>Quick Links</h3>
+
+            <a href="#">Home</a> |
+            <a href="#products">About</a> |
+            <a href="#footer">Service</a> |
+            <a href="#footer">Login</a>
+
+        </div>
+
+        <div class="contact">
+
+            <h3>Contact Us</h3>
+
+            <p>📞 +250 788 123 456</p>
+
+            <p>✉ info@gadgetecommerce.rw</p>
+
+        </div>
+
+        <div class="social">
+
+            <h3>Follow Us</h3>
+
+            <a href="#" aria-label="Facebook">f</a>
+            <a href="#" aria-label="Twitter">𝕏</a>
+            <a href="#" aria-label="YouTube">▶</a>
+            <a href="#" aria-label="LinkedIn">in</a>
+
+        </div>
+
+        <div class="copyright">
+
+            © 2026 Gadget E-Commerce. All rights reserved.
+
+        </div>
+
+    </footer>
+
+</div>
+
+
+<script>
+
+    let cartCount = 0;
+
+    function addToCart() {
+
+        cartCount++;
+
+        document.getElementById("cart-count").textContent = cartCount;
+
+        alert("Product added to cart successfully!");
+
+    }
+
+</script>
+
+</body>
+</html>
